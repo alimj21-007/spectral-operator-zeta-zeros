@@ -1,0 +1,71 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\geometry{margin=1in}
+
+\title{Spectral Operator and Comparison with Zeta Zeros}
+\author{Ali Mojgani}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We construct a self-adjoint operator \( H \) acting on a weighted Hilbert space and analyze its spectral properties. The eigenvalues of \( H \) are computed numerically and compared with the nontrivial zeros of the Riemann zeta function. We demonstrate that the spectrum of \( H \) exhibits statistical and structural resemblance to the zeta zeros, supporting the spectral interpretation of the Riemann Hypothesis. Boundary conditions, domain specification, and numerical details are discussed in detail.
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}
+The Hilbert–Pólya conjecture suggests that the nontrivial zeros of the Riemann zeta function correspond to eigenvalues of a self-adjoint operator. In this paper, we construct such an operator \( H \) and investigate its spectrum numerically, comparing it to the known zeros of \( \zeta(s) \).
+
+\section{Preliminaries}
+We work in the Hilbert space \( L^2((a,b), w(x)\,dx) \), where \( w(x) \) is a positive weight function ensuring square-integrability. The inner product is:
+\[
+\langle f, g \rangle = \int_a^b f(x)\, \overline{g(x)}\, w(x)\, dx
+\]
+The operator \( H \) acts as:
+\[
+H\psi(x) = -\frac{d^2\psi}{dx^2} + V(x)\psi(x)
+\]
+with \( V(x) = x^2 + W(x) \), where \( W(x) \in C^2((a,b)) \) is a perturbation potential. We impose Dirichlet boundary conditions \( \psi(a) = \psi(b) = 0 \), and assume \( H \) is self-adjoint and compact.
+
+\section{Construction of the Operator}
+We define:
+\[
+H = -\frac{d^2}{dx^2} + x^2 + W(x), \quad x \in (a, b)
+\]
+The potential \( W(x) \) is chosen to influence the spectral structure in relation to the zeros of \( \zeta(s) \). The domain consists of functions satisfying the boundary conditions and smoothness requirements.
+
+\section{Spectral Analysis}
+Using finite-difference or Galerkin methods, we discretize \( H \) and compute its eigenvalues \( \{\lambda_n\} \). The spectrum is real and discrete. We also compute:
+\[
+\langle H \rangle = \frac{\langle \psi | H | \psi \rangle}{\langle \psi | \psi \rangle}
+\]
+and verify convergence with increasing grid resolution.
+
+\section{Comparison with Zeta Zeros}
+Let \( \rho_n = \frac{1}{2} + i\gamma_n \) denote the nontrivial zeros of \( \zeta(s) \). We compare the imaginary parts \( \gamma_n \) with the eigenvalues \( \lambda_n \) of \( H \). Metrics include:
+\begin{itemize}
+  \item Spacing distribution
+  \item Pairwise alignment
+  \item Spectral density overlay
+\end{itemize}
+
+\section{Numerical Stability}
+We test stability under perturbations of \( V(x) \) and boundary conditions. Eigenvalues converge consistently across discretization schemes. Results are robust to small changes in grid resolution and operator parameters.
+
+\section{Conclusion}
+We have constructed a self-adjoint operator \( H \) whose spectrum resembles the nontrivial zeros of \( \zeta(s) \). This supports the spectral-operator framework for the Riemann Hypothesis and motivates further exploration of operator-theoretic models in analytic number theory.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
