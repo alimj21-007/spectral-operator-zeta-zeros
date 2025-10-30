@@ -1,0 +1,3 @@
+# Abstract
+
+We construct a self-adjoint differential operator \( H \) acting on a weighted Hilbert space and investigate its spectral properties. The eigenvalues of \( H \) are computed numerically and compared with the nontrivial zeros of the Riemann zeta function. Statistical tests reveal structural and spacing similarities between the operator's spectrum and the zeta zeros, supporting the spectral interpretation of the Riemann Hypothesis. We discuss boundary conditions, domain specification, numerical stability, and convergence. The results suggest that operator-theoretic models may offer new insights into the analytic structure of \(\zeta(s)\).
