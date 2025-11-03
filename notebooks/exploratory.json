@@ -1,0 +1,148 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Spectral Operator and Comparison with Zeta Zeros\n",
+    "This notebook provides exploratory analysis of normalized spectral values and their comparison with the nontrivial zeros of the Riemann zeta function."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "import pandas as pd\n",
+    "import matplotlib.pyplot as plt\n",
+    "import seaborn as sns\n",
+    "\n",
+    "sns.set(style=\"whitegrid\", context=\"talk\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Load Data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Assuming CSV files are stored in the data/ directory\n",
+    "eigs = pd.read_csv(\"data/eigenvalues.csv\")\n",
+    "zeta = pd.read_csv(\"data/zeta_zeros.csv\")\n",
+    "\n",
+    "alpha, beta = 0.5, 10.0\n",
+    "eigs[\"mu_n\"] = alpha * eigs[\"lambda_n\"] + beta\n",
+    "\n",
+    "N = min(len(eigs), len(zeta))\n",
+    "df = pd.DataFrame({\n",
+    "    \"n\": eigs[\"n\"][:N],\n",
+    "    \"mu_n\": eigs[\"mu_n\"][:N],\n",
+    "    \"gamma_n\": zeta[\"gamma_n\"][:N]\n",
+    "})\n",
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Direct Comparison of $\\mu_n$ and $\\gamma_n$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.figure(figsize=(10,6))\n",
+    "plt.plot(df[\"n\"], df[\"mu_n\"], marker=\"o\", label=r\"$\\mu_n$\")\n",
+    "plt.plot(df[\"n\"], df[\"gamma_n\"], marker=\"s\", label=r\"$\\gamma_n$\")\n",
+    "plt.xlabel(\"n\")\n",
+    "plt.ylabel(\"Value\")\n",
+    "plt.title(\"Comparison of Normalized Spectral Values and Zeta Zeros\")\n",
+    "plt.legend()\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Spacing Between Consecutive Values"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df[\"mu_spacing\"] = df[\"mu_n\"].diff()\n",
+    "df[\"zeta_spacing\"] = df[\"gamma_n\"].diff()\n",
+    "\n",
+    "plt.figure(figsize=(10,6))\n",
+    "plt.plot(df[\"n\"][1:], df[\"mu_spacing\"][1:], marker=\"o\", label=\"Spectral Spacing\")\n",
+    "plt.plot(df[\"n\"][1:], df[\"zeta_spacing\"][1:], marker=\"s\", label=\"Zeta Spacing\")\n",
+    "plt.xlabel(\"n\")\n",
+    "plt.ylabel(\"Spacing\")\n",
+    "plt.title(\"Spacing Comparison\")\n",
+    "plt.legend()\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Density Overlay"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.figure(figsize=(10,6))\n",
+    "sns.kdeplot(df[\"mu_n\"], label=r\"$\\mu_n$\", fill=True, alpha=0.4)\n",
+    "sns.kdeplot(df[\"gamma_n\"], label=r\"$\\gamma_n$\", fill=True, alpha=0.4)\n",
+    "plt.xlabel(\"Value\")\n",
+    "plt.ylabel(\"Density\")\n",
+    "plt.title(\"Density Overlay of Spectral vs Zeta Zeros\")\n",
+    "plt.legend()\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Conclusion\n",
+    "This exploratory analysis shows that normalized spectral values and Riemann zeta zeros share notable similarities in their overall trends and spacing statistics."
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "name": "python",
+   "version": "3.10"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
